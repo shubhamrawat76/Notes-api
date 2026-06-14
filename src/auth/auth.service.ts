@@ -4,9 +4,13 @@ import { UserService } from 'src/user/user.service';
 import { ConflictException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Logger } from '@nestjs/common';
+import { LoginDto } from './dto/login.dto';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
     constructor(private readonly userService: UserService,
         private readonly jwtService: JwtService
     ) {}
@@ -28,7 +32,7 @@ export class AuthService {
        const hashedPassword = await bcrypt.hash(registerDto.password, saltRounds);
     
      const newUser =await this.userService.crearedUser({...registerDto,password:hashedPassword});
-         
+          this.logger.log(`User created with email: ${newUser.email} and id: ${newUser.id}`);
      const payload ={sub:newUser.id,email:newUser.email};
           return{
             access_token:this.jwtService.sign(payload),
@@ -37,4 +41,29 @@ export class AuthService {
 
 
     }
-}
+
+    async login(loginDto: LoginDto) {
+/**
+ * 1- Get the user by email form data base
+ * 2- match the password with hashedpassword
+ * 3- create jwt token
+ * 4-return the  jwt token
+ */
+      
+      const user = await this.userService.getUserByEmail(loginDto.email);
+      if(!user){
+        throw new UnauthorizedException('Invalid credentials');
+      }
+       const isMatch = await bcrypt.compare(loginDto.password,user.password);
+       if(!isMatch){
+        throw new UnauthorizedException('Invalid credentials');
+       }
+
+        const payload ={sub:user.id,email:user.email};
+          return{
+            access_token:this.jwtService.sign(payload),
+          };
+
+    }
+
+  }
