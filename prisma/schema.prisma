@@ -8,10 +8,22 @@ datasource db {
 
 
 model User {
-  id        String   @id @default(uuid())
+  id        Int  @id @default(autoincrement())
   email     String   @unique
   name      String?
   password  String
   updatedAt DateTime @updatedAt
   ceatedAt DateTime @default(now())
+  Notes     Note[]
+}
+
+
+model Note {
+  id        Int  @id @default(autoincrement())
+  title     String
+  content   String
+  updatedAt DateTime @updatedAt
+  ceatedAt DateTime @default(now())
+  user  User     @relation(fields: [userId], references: [id])
+  userId   Int
 }

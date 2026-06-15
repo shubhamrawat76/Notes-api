@@ -6,8 +6,8 @@ POST http://localhost:3000/api/register
 Content-Type: application/json
 
  {
-    "name": "sanchi",
-    "email": "sanchi16@example.com",
+    "name": "sawan",
+    "email": "sawan@example.com",
     "password": "Passwor@d123"
  }
 
@@ -20,4 +20,44 @@ Content-Type: application/json
     "email": "sanchi16@example.com",
     "password": "Passwor@d123"
  }
+
+
+### create notes
+ POST http://localhost:3000/api/notes
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2FuY2hpMTZAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODE1MDI3ODEsImV4cCI6MTc4MTUwNjM4MX0.kEQhenEf0HufDIfdB-L3-UV7JDtyC5ORvj8CbrIvs8s
+
+   {
+      "title": "My First Note",
+      "content": "This is the content of my first note."
+   }
+
+
+###  get all notes
+GET http://localhost:3000/api/notes?skip=0&take=2
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoic2F3YW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3ODE1MDM4NTEsImV4cCI6MTc4MTUwNzQ1MX0.lv95FfyvrBgtGs2LvrGHxS7ce0I3xBruZhspYcKmnEY
+
+
+
+###  get a single note
+GET http://localhost:3000/api/notes/1
+  Content-Type: application/json
+   Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2FuY2hpMTZAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODE1MzQzODcsImV4cCI6MTc4MTUzNzk4N30.6S_31tYrA-PATWSMgsxVm_R90SK8GWvMKEaXR3ydlqg
+
+
+### update a note
+PATCH http://localhost:3000/api/notes/1
+  Content-Type: application/json
+   Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2FuY2hpMTZAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODE1MzQzODcsImV4cCI6MTc4MTUzNzk4N30.6S_31tYrA-PATWSMgsxVm_R90SK8GWvMKEaXR3ydlqg
+
+   {
+      "title": "Updated Note Title of sanchi ",
+      "content": "This is the updated content of the note."
+   }
+
+### delete a note   
+DELETE http://localhost:3000/api/notes/8
+  Content-Type: application/json
+   Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2FuY2hpMTZAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODE1MzQzODcsImV4cCI6MTc4MTUzNzk4N30.6S_31tYrA-PATWSMgsxVm_R90SK8GWvMKEaXR3ydlqg
 
